@@ -1,0 +1,81 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.5.3'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+
+group = 'com.github.ridi'
+version = '62.0.3202.101-6'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion '26.0.3'
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        minSdkVersion 19
+        versionCode 1
+        versionName version
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            useProguard true
+            consumerProguardFile 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:multidex:1.0.1'
+    implementation 'com.google.android.gms:play-services-gcm:10.2.0'
+    implementation 'com.google.android.gms:play-services-location:10.2.0'
+    implementation 'com.google.android.gms:play-services-vision:10.2.0'
+    implementation 'com.google.code.findbugs:jsr305:3.0.2'
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+artifacts {
+    archives sourcesJar
+}
+
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            licenses {
+                license {
+                    name 'The 3-Clause BSD License'
+                    url 'https://opensource.org/licenses/BSD-3-Clause'
+                    distribution 'repo'
+                }
+            }
+        }
+    }
+}
